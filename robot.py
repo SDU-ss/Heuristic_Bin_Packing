@@ -251,7 +251,6 @@ class Robot(object):
             random_x_size_top = random.sample(x_size,len(x_size))
             random_y_size_top = random.sample(y_size_1+y_size_2+y_size_3,len(x_size))
             random_z_size_top = []
-            ### 产生高度z相同的object , 都为5cm , 并随机散落###
             for i in range(len(x_size)):
                 if np.random.randint(0,1000)%2 == 0:
                     random_z_size_top.append(5)

@@ -82,7 +82,7 @@ class Robot(object):
             curr_mesh_file = os.path.join(self.obj_mesh_dir, self.mesh_list[self.obj_mesh_ind[object_idx]])
             curr_mesh_file = '/home/zjh/songshuai/Bin_Packing/' + curr_mesh_file
             # curr_mesh_file = os.path.dirname(os.path.realpath(__file__)) + curr_mesh_file
-            print("ssss")
+            
             print('curr_mesh_file:',curr_mesh_file)
 
             curr_shape_name = 'shape_%02d' % object_idx
@@ -246,7 +246,6 @@ class Robot(object):
 
 
         base_path = os.path.dirname(os.path.realpath(__file__)) + '/objects/'
-        print('songshuai1')
         # base_path ='/home/zjh/songshuai/Bin_Packing/objects/'#'/home/ys/2020_work/assembling_task/v2/objects/'#E:\phd_workspace\v2\objects
 
         for z_ind in range(3):

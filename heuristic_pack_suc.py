@@ -187,73 +187,73 @@ for run_out in range(1000):
         ind += 1
         sample_count += 1
 
-    ##################### Disassemble #######################
-    if stop_flag:
-        continue
-    robot.move_to_new([-0.2,0.2,0.2])
-    time.sleep(0.5)
+#     ##################### Disassemble #######################
+#     if stop_flag:
+#         continue
+#     robot.move_to_new([-0.2,0.2,0.2])
+#     time.sleep(0.5)
 
-    # all_position = robot.object_positions()
-    all_position_layer1 = []
-    all_position_layer2 = []
-    all_position_layer3 = []
-    # all_position_layer4 = []
-    all_handl_layer1 = []
-    all_handl_layer2 = []
-    all_handl_layer3 = []
-    # all_handl_layer4 = []
-    ind_list = random.sample(list(range(len(robot.object_positions))),len(robot.object_positions))
-    for p in ind_list:
-        if robot.object_positions[p][2] >= 0.01 and robot.object_positions[p][2] <= 0.06:
-            all_position_layer1.append(robot.object_positions[p])
-            all_handl_layer1.append(robot.object_handles[p])
-        elif robot.object_positions[p][2] > 0.06 and robot.object_positions[p][2] <= 0.11:
-            all_position_layer2.append(robot.object_positions[p])
-            all_handl_layer2.append(robot.object_handles[p])
-        elif robot.object_positions[p][2] > 0.11 and robot.object_positions[p][2] <= 0.16:
-            all_position_layer3.append(robot.object_positions[p])
-            all_handl_layer3.append(robot.object_handles[p])
-        # elif robot.object_positions[p][2] > 0.16 and robot.object_positions[p][2] <= 0.21:
-        #     all_position_layer4.append(robot.object_positions[p])
-        #     all_handl_layer4.append(robot.object_handles[p])
+#     # all_position = robot.object_positions()
+#     all_position_layer1 = []
+#     all_position_layer2 = []
+#     all_position_layer3 = []
+#     # all_position_layer4 = []
+#     all_handl_layer1 = []
+#     all_handl_layer2 = []
+#     all_handl_layer3 = []
+#     # all_handl_layer4 = []
+#     ind_list = random.sample(list(range(len(robot.object_positions))),len(robot.object_positions))
+#     for p in ind_list:
+#         if robot.object_positions[p][2] >= 0.01 and robot.object_positions[p][2] <= 0.06:
+#             all_position_layer1.append(robot.object_positions[p])
+#             all_handl_layer1.append(robot.object_handles[p])
+#         elif robot.object_positions[p][2] > 0.06 and robot.object_positions[p][2] <= 0.11:
+#             all_position_layer2.append(robot.object_positions[p])
+#             all_handl_layer2.append(robot.object_handles[p])
+#         elif robot.object_positions[p][2] > 0.11 and robot.object_positions[p][2] <= 0.16:
+#             all_position_layer3.append(robot.object_positions[p])
+#             all_handl_layer3.append(robot.object_handles[p])
+#         # elif robot.object_positions[p][2] > 0.16 and robot.object_positions[p][2] <= 0.21:
+#         #     all_position_layer4.append(robot.object_positions[p])
+#         #     all_handl_layer4.append(robot.object_handles[p])
 
-        # all_position.append(robot.object_positions[p])
-        # all_handl.append(robot.object_handles[p])
-        # = random.sample(robot.object_positions(),len(robot.object_positions()))
+#         # all_position.append(robot.object_positions[p])
+#         # all_handl.append(robot.object_handles[p])
+#         # = random.sample(robot.object_positions(),len(robot.object_positions()))
 
-    cc = 0
-    all_handl = [all_handl_layer3,all_handl_layer2,all_handl_layer1]
-    for all_position in [all_position_layer3,all_position_layer2,all_position_layer1]:
-        if stop_flag:
-            break
-        n = 0
-        for pos in all_position:
-            robot.set_position_for_single_obj(all_handl[cc][n], [pos[0], pos[1], pos[2]+0.2])
-            robot.set_position_for_single_obj(all_handl[cc][n], [0, 0.55, 0.0255])
-            curr_angle = robot.get_single_obj_orientations(all_handl[cc][n])
-            if abs(curr_angle[1]) < 0.2:
-                robot.set_angle_for_single_obj(all_handl[cc][n], (np.pi / 2, 0 , np.pi / 2))
-            else:
-                robot.set_angle_for_single_obj(all_handl[cc][n], (np.pi / 2, np.pi / 2, np.pi / 2))
-            work_space_obj_handles.remove(all_handl[cc][n])
-            work_space_obj_pos.remove([pos[0], pos[1]])
-            time.sleep(0.5)
-            # save sample data #
-            color_main, depth_main = robot.get_camera_data()
-            color_single, depth_single = robot.get_obj_camera_data()
-            ## ##
-            if check_if_obj_moved(robot, work_space_obj_handles, work_space_obj_pos):
-                stop_flag = True
-                break
-            save_sample_data([pos[0], pos[1], 0.05 - 0.002], color_main, depth_main, color_single, depth_single, sample_count)  # z/100-0.002
-            print('obtain sample ', str(sample_count), ' .....')
-            #####
+#     cc = 0
+#     all_handl = [all_handl_layer3,all_handl_layer2,all_handl_layer1]
+#     for all_position in [all_position_layer3,all_position_layer2,all_position_layer1]:
+#         if stop_flag:
+#             break
+#         n = 0
+#         for pos in all_position:
+#             robot.set_position_for_single_obj(all_handl[cc][n], [pos[0], pos[1], pos[2]+0.2])
+#             robot.set_position_for_single_obj(all_handl[cc][n], [0, 0.55, 0.0255])
+#             curr_angle = robot.get_single_obj_orientations(all_handl[cc][n])
+#             if abs(curr_angle[1]) < 0.2:
+#                 robot.set_angle_for_single_obj(all_handl[cc][n], (np.pi / 2, 0 , np.pi / 2))
+#             else:
+#                 robot.set_angle_for_single_obj(all_handl[cc][n], (np.pi / 2, np.pi / 2, np.pi / 2))
+#             work_space_obj_handles.remove(all_handl[cc][n])
+#             work_space_obj_pos.remove([pos[0], pos[1]])
+#             time.sleep(0.5)
+#             # save sample data #
+#             color_main, depth_main = robot.get_camera_data()
+#             color_single, depth_single = robot.get_obj_camera_data()
+#             ## ##
+#             if check_if_obj_moved(robot, work_space_obj_handles, work_space_obj_pos):
+#                 stop_flag = True
+#                 break
+#             save_sample_data([pos[0], pos[1], 0.05 - 0.002], color_main, depth_main, color_single, depth_single, sample_count)  # z/100-0.002
+#             print('obtain sample ', str(sample_count), ' .....')
+#             #####
 
-            robot.set_position_for_single_obj(all_handl[cc][n], [0.5+np.random.randint(0,200)/1000, -np.random.randint(0,200)/1000, 0.3])
-            n += 1
+#             robot.set_position_for_single_obj(all_handl[cc][n], [0.5+np.random.randint(0,200)/1000, -np.random.randint(0,200)/1000, 0.3])
+#             n += 1
 
-            sample_count += 1
-        cc += 1
+#             sample_count += 1
+#         cc += 1
 
     robot.restart_sim()
     ## remove tmp folder ##
